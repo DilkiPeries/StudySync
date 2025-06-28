@@ -1,0 +1,20 @@
+{
+  "name": "studysync",
+  "version": "1.0.0",
+  "description": "Sri Sumangala College Project for ICT Day of CWW Kannangara College 2025",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^1.7.0",
+    "axios": "^1.10.0",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}
