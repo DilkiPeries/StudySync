@@ -10,6 +10,50 @@ const server = http.createServer(app);
 const io = new Server(server);
 const ai = new GoogleGenAI({ apiKey: process.env.GENAI_API_KEY });
 
+app.use(express.json());
+app.use(express.static('public'));
+
+app.get('/', (req, res) => res.sendFile('public/login.html', { root: '.' }));
+app.get('/chat', (req, res) => res.sendFile('public/index.html', { root: '.' }));
+app.use('/chat/js', express.static('public/js'));
+app.use('/chat/css', express.static('public/css'));
+
+
+app.post('/api/plan', async (req, res) => {
+  const { subjects, days, minPerDay } = req.body;
+  const prompt = `
+Given these subjects with previous and target marks:
+${JSON.stringify(subjects, null, 2)}
+
+You have ${days} days until exams and ${minPerDay} minutes available per day.
+Please note that 0 or - is does not say user got 0. It means user can't remember or the subject didn't exist during the last time.
+
+Return a JSON array of objects like:
+[
+  { "id": 1, "subject": "SubjectName", "duration": totalMinutesAllocated },
+  …
+]
+Only output valid JSON, no extra text.
+`;
+
+  try {
+    const result = await ai.models.generateContent({
+      model: process.env.GENAI_MODEL,
+      contents: [{ parts: [{ text: prompt }] }]
+    });
+    let text = result.candidates[0].content.parts[0].text.trim();
+    text = text
+      .replace(/```json/g, '')
+      .replace(/```/g, '')
+      .trim();
+    const plan = JSON.parse(text);
+    res.json(plan);
+  } catch (e) {
+    console.error('AI plan generation failed:', e);
+    res.status(500).json({ error: 'AI plan generation failed' });
+  }
+});
+
 
 // Following part of the Code has a variable named sjData. 
 // It is used to give more instructions to the gemini API.
