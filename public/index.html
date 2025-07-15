@@ -3,30 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>StudySync Chatroom</title>
+  <title>Login – StudySync</title>
   <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body);"
-        data-auto-render="true">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-
 </head>
-<body>
-  <div class="chat-container">
-    <header><h1>StudySync Chatroom</h1></header>
-    <ul id="messages"></ul>
-    <div id="typing-indicator" class="hidden">SynK is typing…</div>
-    <form id="form">
-      <input id="input" list="suggestions" autocomplete="off" placeholder="Type a message…">
-      <datalist id="suggestions"><option value="@SynK "></datalist>
-      <button>Send</button>
+<body class="login-body">
+  <div class="login-box">
+    <h2>StudySync Chat</h2>
+    <form id="login-form">
+      <input id="username" placeholder="Enter your name" required>
+      <button>Join</button>
     </form>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="js/main.js"></script>
+
+  <script>
+
+    // Known issue: On Google Chrome page refreshes saying Deferred DOM node could not be resolved
+    // Kinda fixed using better cookie/local storage handling. (Assuming local storage key == null is the problem)
+    // More Info: https://stackoverflow.com/questions/72679147/how-can-i-resolve-the-chrome-warning-the-deferred-dom-node-could-not-be-resolve
+
+    const getCookie = (name) => {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    };
+
+    const existingUser = localStorage.getItem('username') || getCookie('username');
+    if (existingUser) {
+      window.location.href = "/chat";
+    }
+
+    const saveUsername = (name) => {
+      localStorage.setItem('username', name);
+      document.cookie = `username=${encodeURIComponent(name)}; path=/; max-age=31536000`;
+    };
+
+    document.getElementById('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('username').value.trim();
+      if (!name) return;
+      saveUsername(name);
+      window.location.href = "/chat";
+    });
+  </script>
 </body>
 </html>

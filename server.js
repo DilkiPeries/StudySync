@@ -13,8 +13,8 @@ const ai = new GoogleGenAI({ apiKey: process.env.GENAI_API_KEY });
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/', (req, res) => res.sendFile('public/login.html', { root: '.' }));
-app.get('/chat', (req, res) => res.sendFile('public/index.html', { root: '.' }));
+app.get('/', (req, res) => res.sendFile('public/index.html', { root: '.' }));
+app.get('/chat', (req, res) => res.sendFile('public/chat/index.html', { root: '.' }));
 app.use('/chat/js', express.static('public/js'));
 app.use('/chat/css', express.static('public/css'));
 
@@ -67,8 +67,8 @@ const sjData =
   'Your job is to help students with their questions and homework. ' +
   'The previous part was your instructions, other part after the colon is the actual prompt: ';
 
-app.get('/', (req, res) => res.sendFile('login.html', { root: 'public' }));
-app.get('/chat', (req, res) => res.sendFile('index.html', { root: 'public' }));
+app.get('/', (req, res) => res.sendFile('index.html', { root: 'public' }));
+app.get('/chat', (req, res) => res.sendFile('chat/index.html', { root: 'public' }));
 app.use('/css', express.static('public/css'));
 app.use('/js', express.static('public/js'));
 
