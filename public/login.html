@@ -14,20 +14,35 @@
       <button>Join</button>
     </form>
   </div>
+
   <script>
-  const saveUsername = (name) => {
-    localStorage.setItem('username', name)
-    document.cookie = `username=${name}; path=/; max-age=31536000`
-  }
 
-  document.getElementById('login-form').addEventListener('submit', e => {
-    e.preventDefault()
-    const name = document.getElementById('username').value.trim()
-    if (!name) return
-    saveUsername(name)
-    window.location.href = "/chat"
-  })
-</script>
+    // Known issue: On Google Chrome page refreshes saying Deferred DOM node could not be resolved
+    // Kinda fixed using better cookie/local storage handling. (Assuming local storage key == null is the problem)
+    // More Info: https://stackoverflow.com/questions/72679147/how-can-i-resolve-the-chrome-warning-the-deferred-dom-node-could-not-be-resolve
 
+    const getCookie = (name) => {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    };
+
+    const existingUser = localStorage.getItem('username') || getCookie('username');
+    if (existingUser) {
+      window.location.href = "/chat";
+    }
+
+    const saveUsername = (name) => {
+      localStorage.setItem('username', name);
+      document.cookie = `username=${encodeURIComponent(name)}; path=/; max-age=31536000`;
+    };
+
+    document.getElementById('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('username').value.trim();
+      if (!name) return;
+      saveUsername(name);
+      window.location.href = "/chat";
+    });
+  </script>
 </body>
 </html>
