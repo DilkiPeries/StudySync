@@ -3,45 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Login – StudySync</title>
+  <title>StudySync - Plan, Learn, Connect, Succeed</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .welcome-content {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .welcome-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #238636, #2ea043);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .welcome-content p {
+      color: #c9d1d9;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .feature {
+      background: rgba(30,35,42,0.6);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .feature h3 {
+      color: #58a6ff;
+      margin-bottom: 0.5rem;
+    }
+    .feature p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .quick-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .quick-actions a {
+      padding: 0.8rem 1.5rem;
+      background: rgba(35,134,54,0.2);
+      border: 1px solid #238636;
+      border-radius: 8px;
+      color: #2ea043;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .quick-actions a:hover {
+      background: rgba(35,134,54,0.3);
+      transform: translateY(-2px);
+    }
+    .demo-note {
+      background: rgba(255,193,7,0.1);
+      border: 1px solid rgba(255,193,7,0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .demo-note p {
+      color: #ffc107;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body class="login-body">
-  <div class="login-box">
-    <h2>StudySync Chat</h2>
+  <div class="login-box" style="max-width: 600px; width: 90%;">
+    <div class="welcome-content">
+      <h1>StudySync</h1>
+      <p>Your comprehensive study companion for academic success</p>
+    </div>
+
+    <div class="demo-note">
+      <p>🎓 This is a school project demo - No real authentication required!</p>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <h3>📚 Study Plans</h3>
+        <p>AI-powered personalized study schedules</p>
+      </div>
+      <div class="feature">
+        <h3>💬 Study Chat</h3>
+        <p>Get help from SynK AI assistant</p>
+      </div>
+      <div class="feature">
+        <h3>📊 Progress Tracking</h3>
+        <p>Monitor your learning journey</p>
+      </div>
+      <div class="feature">
+        <h3>🎯 Goal Setting</h3>
+        <p>Set and achieve academic targets</p>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <a href="/chat/">Quick Chat</a>
+      <a href="/plan/">Study Planner</a>
+    </div>
+
     <form id="login-form">
-      <input id="username" placeholder="Enter your name" required>
-      <button>Join</button>
+      <input id="username" placeholder="Enter your name to get started" required>
+      <button type="submit">Enter StudySync</button>
     </form>
+
+    <div style="text-align: center; margin-top: 1rem; opacity: 0.7; font-size: 0.8rem;">
+      <p>Sri Sumangala College Project for ICT Day of CWW Kannangara College 2025</p>
+    </div>
   </div>
 
   <script>
-
-    // Known issue: On Google Chrome page refreshes saying Deferred DOM node could not be resolved
-    // Kinda fixed using better cookie/local storage handling. (Assuming local storage key == null is the problem)
-    // More Info: https://stackoverflow.com/questions/72679147/how-can-i-resolve-the-chrome-warning-the-deferred-dom-node-could-not-be-resolve
-
     const getCookie = (name) => {
       const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? match[2] : null;
+      return match ? decodeURIComponent(match[2]) : null;
     };
 
     const existingUser = localStorage.getItem('username') || getCookie('username');
     if (existingUser) {
-      window.location.href = "/chat";
+      // Check if user has completed profile setup
+      const userData = localStorage.getItem('studysync_user_data');
+      if (userData && JSON.parse(userData).display_name) {
+        window.location.href = "/dashboard.html";
+      } else {
+        window.location.href = "/dashboard.html";
+      }
     }
 
     const saveUsername = (name) => {
       localStorage.setItem('username', name);
       document.cookie = `username=${encodeURIComponent(name)}; path=/; max-age=31536000`;
+      
+      // Initialize user stats if they don't exist
+      if (!localStorage.getItem('studysync_stats')) {
+        const initialStats = {
+          plan_count: Math.floor(Math.random() * 3), // 0-2 for demo
+          total_hours: Math.floor(Math.random() * 50), // 0-49 for demo
+          avg_progress: Math.floor(Math.random() * 100) // 0-99% for demo
+        };
+        localStorage.setItem('studysync_stats', JSON.stringify(initialStats));
+      }
     };
 
     document.getElementById('login-form').addEventListener('submit', e => {
       e.preventDefault();
       const name = document.getElementById('username').value.trim();
       if (!name) return;
+      
+      if (name.length < 2) {
+        alert('Name must be at least 2 characters long');
+        return;
+      }
+      
       saveUsername(name);
-      window.location.href = "/chat";
+      window.location.href = "/dashboard.html";
+    });
+
+    // Add some interactive animations
+    document.querySelectorAll('.feature').forEach(feature => {
+      feature.addEventListener('mouseenter', () => {
+        feature.style.transform = 'translateY(-5px)';
+        feature.style.transition = 'transform 0.2s ease';
+      });
+      
+      feature.addEventListener('mouseleave', () => {
+        feature.style.transform = 'translateY(0)';
+      });
     });
   </script>
 </body>

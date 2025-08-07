@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - StudySync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dark {
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .dark .bg-white {
+            background-color: #1e293b;
+            color: #e2e8f0;
+        }
+        .dark .text-gray-800, .dark .text-gray-900 {
+            color: #e2e8f0;
+        }
+        .dark .text-gray-600, .dark .text-gray-700 {
+            color: #94a3b8;
+        }
+        .dark .text-gray-500 {
+            color: #64748b;
+        }
+        .dark .bg-gray-100 {
+            background-color: #0f172a;
+        }
+        .dark .bg-gray-50 {
+            background-color: #1e293b;
+        }
+        .dark .border-gray-300 {
+            border-color: #374151;
+        }
+        .dark input {
+            background-color: #374151;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-inter transition-colors duration-300" id="body">
+    <div class="min-h-screen bg-slate-950">
+        <!-- Header -->
+        <header class="bg-gray-100 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-6">
+                    <div class="flex items-center">
+                        <a href="dashboard.html" class="text-blue-600 hover:text-blue-800">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                        </a>
+                        <h1 class="ml-4 text-2xl font-bold text-gray-900">Profile Settings</h1>
+                    </div>
+                    <!-- <button id="dark-mode-toggle" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded transition-colors duration-300">Dark Mode</button> -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div class="px-4 py-6 sm:px-0">
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-6">Personal Information</h3>
+                        
+                        <div id="profile-messages"></div>
+                        
+                        <div class="grid grid-cols-1 gap-6">
+                            <!-- Profile Picture -->
+                            <div class="col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Profile Picture</label>
+                                <div class="flex items-center">
+                                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold" id="profile-avatar">
+                                        ?
+                                    </div>
+                                    <button class="ml-4 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50" onclick="alert('Profile picture upload coming soon!')">
+                                        Change
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Username -->
+                            <div class="col-span-1">
+                                <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                                <input type="text" id="username" readonly 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-500">
+                                <p class="mt-1 text-sm text-gray-500">Username cannot be changed</p>
+                            </div>
+
+                            <!-- Display Name -->
+                            <div class="col-span-1">
+                                <label for="display_name" class="block text-sm font-medium text-gray-700 mb-2">Display Name</label>
+                                <input type="text" id="display_name" 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Email (readonly) -->
+                            <div class="col-span-1">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" readonly 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-500">
+                                <p class="mt-1 text-sm text-gray-500">Email cannot be changed</p>
+                            </div>
+
+                            <!-- Account Created -->
+                            <div class="col-span-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Member Since</label>
+                                <p class="text-sm text-gray-900" id="member-since">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-end space-x-3">
+                            <button type="button" id="cancel-btn" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                Cancel
+                            </button>
+                            <button type="button" id="save-btn" class="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Statistics -->
+                <div class="mt-8 bg-white shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-6">Study Statistics</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-blue-600" id="stat-plans">0</div>
+                                <div class="text-sm text-gray-500">Study Plans Created</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-green-600" id="stat-hours">0</div>
+                                <div class="text-sm text-gray-500">Hours Studied</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-600" id="stat-progress">0%</div>
+                                <div class="text-sm text-gray-500">Average Progress</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Utility functions
+        const getCookie = (name) => {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : null;
+        };
+
+        const getUsername = () => {
+            return localStorage.getItem('username') || getCookie('username');
+        };
+
+        const getUserData = () => {
+            const userData = localStorage.getItem('studysync_user_data');
+            if (userData) {
+                return JSON.parse(userData);
+            }
+            return null;
+        };
+
+        const saveUserData = (data) => {
+            localStorage.setItem('studysync_user_data', JSON.stringify(data));
+        };
+
+        const getStats = () => {
+            const stats = localStorage.getItem('studysync_stats');
+            if (stats) {
+                return JSON.parse(stats);
+            }
+            return { plan_count: 0, total_hours: 0, avg_progress: 0 };
+        };
+
+        // DOM elements
+        const saveBtn = document.getElementById('save-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const messagesDiv = document.getElementById('profile-messages');
+        // const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.getElementById('body');
+
+        // Original values for cancel functionality
+        let originalValues = {};
+
+        // Initialize profile page
+        function initializeProfile() {
+            const username = getUsername();
+            
+            if (!username) {
+                // Redirect to login
+                window.location.href = '/';
+                return;
+            }
+
+            const userData = getUserData();
+            
+            if (userData) {
+                // Populate form with user data
+                document.getElementById('username').value = userData.username || username;
+                document.getElementById('display_name').value = userData.display_name || '';
+                document.getElementById('email').value = userData.email || (username + '@studysync.local');
+                
+                // Set profile avatar
+                const avatar = document.getElementById('profile-avatar');
+                if (userData.display_name) {
+                    avatar.textContent = userData.display_name.charAt(0).toUpperCase();
+                } else if (userData.username) {
+                    avatar.textContent = userData.username.charAt(0).toUpperCase();
+                } else {
+                    avatar.textContent = username.charAt(0).toUpperCase();
+                }
+                
+                // Set member since date
+                if (userData.created_at) {
+                    const date = new Date(userData.created_at);
+                    document.getElementById('member-since').textContent = date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                } else {
+                    document.getElementById('member-since').textContent = 'Recently';
+                }
+                
+                // Store original values
+                originalValues = {
+                    display_name: userData.display_name || ''
+                };
+            } else {
+                // Create basic user data
+                const basicUserData = {
+                    username: username,
+                    display_name: '',
+                    email: username + '@studysync.local',
+                    created_at: new Date().toISOString()
+                };
+                saveUserData(basicUserData);
+                
+                document.getElementById('username').value = username;
+                document.getElementById('email').value = username + '@studysync.local';
+                document.getElementById('member-since').textContent = 'Today';
+                
+                originalValues = {
+                    display_name: ''
+                };
+            }
+            
+            // Load and display stats
+            const stats = getStats();
+            document.getElementById('stat-plans').textContent = stats.plan_count;
+            document.getElementById('stat-hours').textContent = stats.total_hours;
+            document.getElementById('stat-progress').textContent = stats.avg_progress + '%';
+        }
+
+        // Save profile changes
+        saveBtn.addEventListener('click', async () => {
+            const displayName = document.getElementById('display_name').value.trim();
+
+            if (!displayName) {
+                showMessage('Please enter a display name', 'error');
+                return;
+            }
+
+            if (displayName.length < 2) {
+                showMessage('Display name must be at least 2 characters long', 'error');
+                return;
+            }
+
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+
+            try {
+                const userData = getUserData();
+                if (userData) {
+                    userData.display_name = displayName;
+                    userData.updated_at = new Date().toISOString();
+                    saveUserData(userData);
+                    
+                    // Update profile avatar
+                    document.getElementById('profile-avatar').textContent = displayName.charAt(0).toUpperCase();
+                    
+                    originalValues.display_name = displayName;
+                    
+                    showMessage('Profile updated successfully!', 'success');
+                } else {
+                    showMessage('User data not found', 'error');
+                }
+            } catch (error) {
+                showMessage('An error occurred while updating your profile', 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Changes';
+            }
+        });
+
+        // Cancel changes
+        cancelBtn.addEventListener('click', () => {
+            document.getElementById('display_name').value = originalValues.display_name;
+            clearMessages();
+        });
+
+        // Dark mode toggle
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark');
+            // darkModeToggle.textContent = 'Light Mode';
+        }
+        else{
+            body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function showMessage(message, type) {
+            const className = type === 'success' ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800';
+            messagesDiv.innerHTML = `
+                <div class="rounded-md ${className} p-4 mb-6 border">
+                    <div class="text-sm">${message}</div>
+                </div>
+            `;
+        }
+
+        function clearMessages() {
+            messagesDiv.innerHTML = '';
+        }
+
+        // Initialize the profile page
+        initializeProfile();
+    </script>
+</body>
+</html>

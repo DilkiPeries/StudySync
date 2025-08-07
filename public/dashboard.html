@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySync Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        @media (max-width: 768px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.open {
+                transform: translateX(0);
+            }
+        }
+        .profile-modal {
+            backdrop-filter: blur(10px);
+        }
+        .dark {
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .dark header {
+            background-color: #1e293b;
+        }
+        .dark .bg-white {
+            background-color: #1e293b;
+            color: #e2e8f0;
+        }
+        .dark .text-gray-800 {
+            color: #e2e8f0;
+        }
+        .dark .text-gray-600 {
+            color: #94a3b8;
+        }
+        .dark .bg-gray-100 {
+            background-color: #0f172a;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 transition-colors duration-300" id="body">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p class="mt-4 text-gray-600">Loading StudySync...</p>
+        </div>
+    </div>
+
+    <!-- Profile Setup Modal -->
+    <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-50 profile-modal flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold mb-4 text-center">Complete Your Profile</h2>
+            <p class="text-gray-600 mb-6 text-center">Please set up your display name to get started</p>
+            
+            <div id="profile-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+            
+            <div class="mb-6">
+                <label for="display-name" class="block text-sm font-medium text-gray-700 mb-2">Display Name</label>
+                <input type="text" id="display-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-900" placeholder="Enter your display name">
+            </div>
+            
+            <button id="save-profile" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                Save Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="main-dashboard" class="hidden">
+        <header class="bg-blue-600 text-white p-4 flex justify-between items-center transition-colors duration-300" id="header">
+            <div class="flex items-center space-x-4">
+                <button id="menu-toggle" class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <h1 class="text-xl font-bold">StudySync</h1>
+            </div>
+            <nav class="hidden md:flex space-x-4">
+                <a href="/dashboard.html" class="hover:underline">Dashboard</a>
+                <a href="/plan/" class="hover:underline">Study Plan</a>
+                <a href="#" class="hover:underline">Timetable</a>
+                <a href="#" class="hover:underline">Resources</a>
+                <a href="#" class="hover:underline">Lessons</a>
+                <a href="/chat/" class="hover:underline">Chat</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+
+                <!-- <button id="dark-mode-toggle" class="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-1 px-3 rounded transition-colors duration-300">Dark Mode</button> --> 
+                 <!-- Removed the light/dark toggle and stuck to dark mode. It looks more clean, modern and elegant -->
+
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
+                        <span id="user-avatar" class="text-sm font-semibold">?</span>
+                    </div>
+                    <span id="user-display-name" class="font-medium">Guest</span>
+                    <button id="logout-btn" class="text-blue-200 hover:text-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex min-h-screen">
+            <aside id="sidebar" class="bg-white w-64 p-6 shadow-lg md:static absolute min-h-screen z-40">
+                <h2 class="text-lg font-semibold mb-4">Menu</h2>
+                <ul class="space-y-2">
+                    <li><a href="/plan/" class="block p-2 rounded hover:bg-blue-100">Study Plan</a></li>
+                    <li><a href="#" class="block p-2 rounded hover:bg-blue-100">Timetable & Attendance</a></li>
+                    <li><a href="#" class="block p-2 rounded hover:bg-blue-100">Notes & Pastpapers</a></li>
+                    <li><a href="#" class="block p-2 rounded hover:bg-blue-100">Interactive Lessons</a></li>
+                    <li><a href="/chat/" class="block p-2 rounded hover:bg-blue-100">Chat Room</a></li>
+                    <li><a href="profile.html" class="block p-2 rounded hover:bg-blue-100">Profile</a></li>
+                </ul>
+            </aside>
+
+            <main class="flex-1 p-6 bg-gray-100 transition-colors duration-300 dark">
+                <section class="mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800">Welcome to StudySync</h2>
+                    <p class="text-gray-600">Plan, learn, connect, and succeed!</p>
+                </section>
+
+                <!-- Stats Cards -->
+                <section class="mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <div class="text-3xl font-bold text-blue-600" id="plan-count">0</div>
+                            <div class="text-sm text-gray-500">Study Plans Created</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <div class="text-3xl font-bold text-green-600" id="total-hours">0</div>
+                            <div class="text-sm text-gray-500">Hours Studied</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <div class="text-3xl font-bold text-purple-600" id="avg-progress">0%</div>
+                            <div class="text-sm text-gray-500">Average Progress</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-4">Your Study Plan</h3>
+                    <div class="bg-white p-4 rounded-lg shadow" id="current-plan">
+                        <h4 class="font-semibold">Weekly Goals</h4>
+                        <p class="text-sm text-gray-600">Complete 5 math chapters, 3 science quizzes, and 1 history essay.</p>
+                        <div class="mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">60% Complete</p>
+                        </div>
+                        <a href="/plan/" class="mt-2 inline-block text-blue-600 hover:underline">Update Plan</a>
+                    </div>
+                </section>
+
+                <section class="mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-4">Timetable & Attendance</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="timetable-container">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">Math Class</h4>
+                            <p class="text-sm text-gray-600">Today, 2:00 PM - 3:30 PM</p>
+                            <p class="text-sm text-green-600">Attended</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">Science Lab</h4>
+                            <p class="text-sm text-gray-600">Tomorrow, 10:00 AM - 11:30 AM</p>
+                            <p class="text-sm text-gray-600">Pending</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">History Seminar</h4>
+                            <p class="text-sm text-gray-600">Wed, 1:00 PM - 2:30 PM</p>
+                            <p class="text-sm text-red-600">Missed</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-4">Notes & Pastpapers</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">Math Notes</h4>
+                            <p class="text-sm text-gray-600">Algebra and calculus summaries.</p>
+                            <a href="#" class="mt-2 text-blue-600 hover:underline">Download</a>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">Science Pastpapers</h4>
+                            <p class="text-sm text-gray-600">2019-2024 O/L papers.</p>
+                            <a href="#" class="mt-2 text-blue-600 hover:underline">Download</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-6">
+                    <h3 class="text-xl font-medium text-gray-800 mb-4">Interactive Lessons</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">Math Quiz</h4>
+                            <p class="text-sm text-gray-600">Test your algebra skills with 10 questions.</p>
+                            <button class="mt-2 text-blue-600 hover:underline">Start Quiz</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h4 class="font-semibold">Flashcards: Biology</h4>
+                            <p class="text-sm text-gray-600">Memorize key terms with interactive cards.</p>
+                            <button class="mt-2 text-blue-600 hover:underline">Start Flashcards</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="text-xl font-medium text-gray-800 mb-4">Chat Room</h3>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold">Study Group Chat</h4>
+                        <div class="mt-2 h-40 overflow-y-auto bg-slate-900 p-2 rounded">
+                            <p class="text-sm text-gray-600">[SynK] Need help with math? Ask away!</p>
+                            <p class="text-sm text-gray-600">[Hiruja] Can someone explain quadratic equations?</p>
+                            <p class="text-sm text-gray-600">[Samithu] Sure, let's break it down!</p>
+                        </div>
+                        <div class="mt-2 flex">
+                            <input type="text" placeholder="Type a message..." class="flex-1 p-2 border rounded-l-lg focus:outline-none bg-slate-900">
+                            <a href="/chat/" class="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 flex items-center">Join Chat</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // cookie handling /hirujasj
+        const getCookie = (name) => {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : null;
+        };
+
+        const getUsername = () => {
+            return localStorage.getItem('username') || getCookie('username');
+        };
+
+        const getUserData = () => {
+            const userData = localStorage.getItem('studysync_user_data');
+            if (userData) {
+                return JSON.parse(userData);
+            }
+            return null;
+        };
+
+        const saveUserData = (data) => {
+            localStorage.setItem('studysync_user_data', JSON.stringify(data));
+        };
+
+        const getStats = () => {
+            const stats = localStorage.getItem('studysync_stats');
+            if (stats) {
+                return JSON.parse(stats);
+            }
+            return { plan_count: 0, total_hours: 0, avg_progress: 0 };
+        };
+
+        const updateStats = () => {
+            const stats = getStats();
+            document.getElementById('plan-count').textContent = stats.plan_count;
+            document.getElementById('total-hours').textContent = stats.total_hours;
+            document.getElementById('avg-progress').textContent = stats.avg_progress + '%';
+        };
+
+        // DOM elements
+        const loadingScreen = document.getElementById('loading-screen');
+        const profileModal = document.getElementById('profile-modal');
+        const mainDashboard = document.getElementById('main-dashboard');
+        const userDisplayName = document.getElementById('user-display-name');
+        const userAvatar = document.getElementById('user-avatar');
+        const saveProfileBtn = document.getElementById('save-profile');
+        const logoutBtn = document.getElementById('logout-btn');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.getElementById('body');
+
+        // Initialize app
+        function initializeApp() {
+            const username = getUsername();
+            
+            if (!username) {
+                // Redirect to login
+                window.location.href = '/';
+                return;
+            }
+
+            const userData = getUserData();
+            
+            if (!userData || !userData.display_name) {
+                // Show profile setup modal
+                showProfileModal();
+            } else {
+                // Show dashboard
+                showDashboard(userData);
+            }
+        }
+
+        function showProfileModal() {
+            loadingScreen.classList.add('hidden');
+            mainDashboard.classList.add('hidden');
+            profileModal.classList.remove('hidden');
+            
+            const username = getUsername();
+            if (username) {
+                document.getElementById('display-name').value = username;
+            }
+        }
+
+        function showDashboard(userData) {
+            loadingScreen.classList.add('hidden');
+            profileModal.classList.add('hidden');
+            mainDashboard.classList.remove('hidden');
+            
+            userDisplayName.textContent = userData.display_name;
+            userAvatar.textContent = userData.display_name.charAt(0).toUpperCase();
+            
+            updateStats();
+        }
+
+        // Save profile
+        saveProfileBtn.addEventListener('click', async () => {
+            const displayName = document.getElementById('display-name').value.trim();
+            const errorDiv = document.getElementById('profile-error');
+            
+            if (!displayName) {
+                showProfileError('Please enter a display name');
+                return;
+            }
+            
+            if (displayName.length < 2) {
+                showProfileError('Display name must be at least 2 characters long');
+                return;
+            }
+            
+            localStorage.setItem('theme', 'dark');
+            saveProfileBtn.disabled = true;
+            saveProfileBtn.textContent = 'Saving...';
+            
+            const username = getUsername();
+            const userData = {
+                username: username,
+                display_name: displayName,
+                email: username + '@studysync.local',
+                created_at: new Date().toISOString()
+            };
+            
+            saveUserData(userData);
+            
+            setTimeout(() => {
+                saveProfileBtn.disabled = false;
+                saveProfileBtn.textContent = 'Save Profile';
+                showDashboard(userData);
+            }, 1000);
+        });
+
+        function showProfileError(message) {
+            const errorDiv = document.getElementById('profile-error');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        // Logout (just in case you made a typo in the display name lol ;)    ) 
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('username');
+            localStorage.removeItem('studysync_user_data');
+            localStorage.removeItem('studysync_stats');
+            document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.href = '/';
+        });
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Dark mode toggle
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark');
+            // darkModeToggle.textContent = 'Light Mode';
+        }
+        else{
+            body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        // darkModeToggle.addEventListener('click', () => {
+        //     body.classList.toggle('dark');
+        //     if (body.classList.contains('dark')) {
+        //         localStorage.setItem('theme', 'dark');
+        //         darkModeToggle.textContent = 'Light Mode';
+        //     } else {
+        //         localStorage.setItem('theme', 'light');
+        //         darkModeToggle.textContent = 'Dark Mode';
+        //     }
+        // });
+
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth < 768 && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Initialize the app
+        initializeApp();
+    </script>
+</body>
+</html>
