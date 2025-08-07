@@ -1,0 +1,15 @@
+{
+  "title": "Geography Flashcards",
+  "questions": [
+    { "question": "What is the longest river in the world?", "answer": "Nile River" },
+    { "question": "Which continent has the most countries?", "answer": "Africa" },
+    { "question": "What is the capital of Australia?", "answer": "Canberra" },
+    { "question": "Which ocean is the largest?", "answer": "Pacific Ocean" },
+    { "question": "Mount Everest is part of which mountain range?", "answer": "Himalayas" },
+    { "question": "Which country has the most population?", "answer": "India" },
+    { "question": "Desert with the highest temperature recorded?", "answer": "Sahara" },
+    { "question": "What is the smallest continent?", "answer": "Australia" },
+    { "question": "Which U.S. state is the largest by area?", "answer": "Alaska" },
+    { "question": "Capital of Japan?", "answer": "Tokyo" }
+  ]
+}

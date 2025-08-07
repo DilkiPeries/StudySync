@@ -1,0 +1,15 @@
+{
+  "title": "Biology Flashcards",
+  "questions": [
+    { "question": "What is the powerhouse of the cell?", "answer": "Mitochondria" },
+    { "question": "What carries genetic information?", "answer": "DNA" },
+    { "question": "Process by which plants make food?", "answer": "Photosynthesis" },
+    { "question": "Which organ pumps blood?", "answer": "Heart" },
+    { "question": "What is the basic unit of life?", "answer": "Cell" },
+    { "question": "What organ filters blood?", "answer": "Kidney" },
+    { "question": "Name the largest bone in the body.", "answer": "Femur" },
+    { "question": "What system controls body responses?", "answer": "Nervous system" },
+    { "question": "Which part of the cell contains DNA?", "answer": "Nucleus" },
+    { "question": "What connects muscles to bones?", "answer": "Tendons" }
+  ]
+}

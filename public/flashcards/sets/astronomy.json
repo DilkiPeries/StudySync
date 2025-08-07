@@ -1,0 +1,15 @@
+{
+  "title": "Astronomy Flashcards",
+  "questions": [
+    { "question": "What is the closest planet to the sun?", "answer": "Mercury" },
+    { "question": "Which planet has the most moons?", "answer": "Saturn" },
+    { "question": "What galaxy is Earth in?", "answer": "Milky Way" },
+    { "question": "What is the largest planet?", "answer": "Jupiter" },
+    { "question": "Which planet is tilted on its side?", "answer": "Uranus" },
+    { "question": "What is a supernova?", "answer": "An exploding star" },
+    { "question": "Name of NASA’s space telescope?", "answer": "Hubble" },
+    { "question": "What causes day and night?", "answer": "Earth’s rotation" },
+    { "question": "How long is one Earth year?", "answer": "365 days" },
+    { "question": "What is the moon made of?", "answer": "Rock" }
+  ]
+}
