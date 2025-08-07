@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading...</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+.quiz-container {
+  max-width: 600px;
+  width: 90%;
+  margin: auto;
+  background: rgba(30,35,42,0.8);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(12,17,27,0.7);
+  animation: fadeIn 0.5s ease-out;
+  text-align: center;
+}
+
+.card {
+  margin-top: 1rem;
+}
+
+#question {
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+#options {
+  display: grid;
+  gap: 1rem;
+}
+
+.option-btn {
+  background: #161b22;
+  color: #c9d1d9;
+  border: 2px solid transparent;
+  padding: 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  width: 100%;
+}
+
+.option-btn:hover {
+  background: #21262d;
+}
+
+.option-btn.correct {
+  border-color: #2ea043;
+  background: #238636;
+  color: white;
+}
+
+.option-btn.wrong {
+  border-color: #ff7b72;
+  background: #8e1519;
+  color: white;
+}
+
+#next-btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background: #238636;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+#next-btn:hover {
+  background: #2ea043;
+}
+
+.hidden {
+  display: none;
+}
+
+#result-box {
+  text-align: center;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+#result-box button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: #238636;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@media (max-width: 500px) {
+  .option-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  #question {
+    font-size: 1rem;
+  }
+
+  #next-btn {
+    font-size: 0.9rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1 id="quiz-title">Quiz</h1>
+    <div id="quiz-box" class="card">
+      <div id="question">Loading question...</div>
+      <div id="options"></div>
+      <button id="next-btn" class="hidden">Next</button>
+    </div>
+    <div id="result-box" class="hidden">
+      <h2>Quiz Complete!</h2>
+      <p id="score-text"></p>
+      <button onclick="location.reload()">Play Again</button>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>

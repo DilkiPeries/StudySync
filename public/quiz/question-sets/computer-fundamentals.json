@@ -1,0 +1,55 @@
+{
+  "title": "Computer Fundamentals",
+  "questions": [
+    {
+      "question": "What does CPU stand for?",
+      "options": ["Computer Processing Unit", "Central Processing Unit", "Control Panel Unit", "Central Power Unit"],
+      "answer": "Central Processing Unit"
+    },
+    {
+      "question": "Which of these is an input device?",
+      "options": ["Monitor", "Mouse", "Speaker", "Printer"],
+      "answer": "Mouse"
+    },
+    {
+      "question": "What is the brain of the computer?",
+      "options": ["RAM", "CPU", "Hard Drive", "Monitor"],
+      "answer": "CPU"
+    },
+    {
+      "question": "Which key is used to start a new line in a text editor?",
+      "options": ["Ctrl", "Enter", "Alt", "Esc"],
+      "answer": "Enter"
+    },
+    {
+      "question": "Which company created Windows?",
+      "options": ["Apple", "Microsoft", "Google", "IBM"],
+      "answer": "Microsoft"
+    },
+    {
+      "question": "What type of memory is RAM?",
+      "options": ["Permanent", "Temporary", "Secondary", "External"],
+      "answer": "Temporary"
+    },
+    {
+      "question": "What does 'www' stand for?",
+      "options": ["World Wide Web", "Web Wide World", "Wide Web World", "World Web Wide"],
+      "answer": "World Wide Web"
+    },
+    {
+      "question": "What is the main page of a website called?",
+      "options": ["Dashboard", "Index", "Home page", "Start page"],
+      "answer": "Home page"
+    },
+    {
+      "question": "Which file extension is used for images?",
+      "options": [".docx", ".jpg", ".exe", ".txt"],
+      "answer": ".jpg"
+    },
+    {
+      "question": "Which of the following is not a programming language?",
+      "options": ["Python", "HTML", "Java", "Excel"],
+      "answer": "Excel"
+    }
+  ]
+}

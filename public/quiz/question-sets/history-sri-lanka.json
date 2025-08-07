@@ -1,0 +1,55 @@
+{
+  "title": "Sri Lankan History",
+  "questions": [
+    {
+      "question": "Who was the first king of Sri Lanka?",
+      "options": ["Dutugemunu", "Vijaya", "Parakramabahu", "Pandukabhaya"],
+      "answer": "Vijaya"
+    },
+    {
+      "question": "What is the ancient city known for its rock fortress?",
+      "options": ["Polonnaruwa", "Anuradhapura", "Sigiriya", "Kandy"],
+      "answer": "Sigiriya"
+    },
+    {
+      "question": "In which year did Sri Lanka gain independence?",
+      "options": ["1948", "1945", "1950", "1931"],
+      "answer": "1948"
+    },
+    {
+      "question": "Who was the last king of Sri Lanka?",
+      "options": ["Parakramabahu", "Dutugemunu", "Sri Vikrama Rajasinha", "Vijaya"],
+      "answer": "Sri Vikrama Rajasinha"
+    },
+    {
+      "question": "Where was the ancient capital of Anuradhapura?",
+      "options": ["North", "Central", "South", "East"],
+      "answer": "North"
+    },
+    {
+      "question": "Which European country first colonized Sri Lanka?",
+      "options": ["British", "Dutch", "Portuguese", "French"],
+      "answer": "Portuguese"
+    },
+    {
+      "question": "Who is known for building massive tanks and reservoirs?",
+      "options": ["Vijaya", "Mahasen", "Kashyapa", "Parakramabahu"],
+      "answer": "Parakramabahu"
+    },
+    {
+      "question": "Where is the Temple of the Tooth located?",
+      "options": ["Colombo", "Kandy", "Anuradhapura", "Jaffna"],
+      "answer": "Kandy"
+    },
+    {
+      "question": "Which kingdom followed the Anuradhapura Kingdom?",
+      "options": ["Kandy", "Polonnaruwa", "Jaffna", "Colombo"],
+      "answer": "Polonnaruwa"
+    },
+    {
+      "question": "Which was the main export during colonial rule?",
+      "options": ["Tea", "Rubber", "Cinnamon", "Coconut"],
+      "answer": "Cinnamon"
+    }
+  ]
+}

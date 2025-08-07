@@ -1,0 +1,55 @@
+{
+  "title": "Science Basics",
+  "questions": [
+    {
+      "question": "Which gas is essential for humans to breathe?",
+      "options": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+      "answer": "Oxygen"
+    },
+    {
+      "question": "What organ pumps blood through the body?",
+      "options": ["Liver", "Heart", "Lungs", "Brain"],
+      "answer": "Heart"
+    },
+    {
+      "question": "What is H2O?",
+      "options": ["Oxygen", "Hydrogen", "Salt", "Water"],
+      "answer": "Water"
+    },
+    {
+      "question": "How many planets are in the solar system?",
+      "options": ["7", "8", "9", "10"],
+      "answer": "8"
+    },
+    {
+      "question": "What do plants need for photosynthesis?",
+      "options": ["Sunlight", "Moonlight", "Sugar", "Oxygen"],
+      "answer": "Sunlight"
+    },
+    {
+      "question": "Which organ helps you to breathe?",
+      "options": ["Heart", "Liver", "Lungs", "Kidneys"],
+      "answer": "Lungs"
+    },
+    {
+      "question": "What is the boiling point of water at sea level?",
+      "options": ["90°C", "100°C", "110°C", "120°C"],
+      "answer": "100°C"
+    },
+    {
+      "question": "What is gravity?",
+      "options": ["Light", "Heat", "Force", "Magnet"],
+      "answer": "Force"
+    },
+    {
+      "question": "Which of these is a solid?",
+      "options": ["Air", "Water", "Ice", "Steam"],
+      "answer": "Ice"
+    },
+    {
+      "question": "Which part of the plant absorbs water?",
+      "options": ["Leaves", "Stem", "Flowers", "Roots"],
+      "answer": "Roots"
+    }
+  ]
+}

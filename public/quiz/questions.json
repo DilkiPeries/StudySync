@@ -1,0 +1,55 @@
+{
+  "title": "Algebra",
+  "questions": [
+    {
+      "question": "What is 2 + 2?",
+      "options": ["3", "4", "5", "6"],
+      "answer": "4"
+    },
+    {
+      "question": "Simplify: 3x + 2x",
+      "options": ["5", "5x", "6x", "3x"],
+      "answer": "5x"
+    },
+    {
+      "question": "What is the square root of 16?",
+      "options": ["2", "4", "6", "8"],
+      "answer": "4"
+    },
+    {
+      "question": "Solve for x: x + 5 = 9",
+      "options": ["3", "4", "5", "6"],
+      "answer": "4"
+    },
+    {
+      "question": "What is 7 × 6?",
+      "options": ["42", "36", "48", "40"],
+      "answer": "42"
+    },
+    {
+      "question": "Factor: x² - 9",
+      "options": ["(x+3)(x+3)", "(x+9)(x-1)", "(x+3)(x-3)", "(x-3)(x-3)"],
+      "answer": "(x+3)(x-3)"
+    },
+    {
+      "question": "What is 10% of 50?",
+      "options": ["10", "5", "15", "20"],
+      "answer": "5"
+    },
+    {
+      "question": "Solve: 12 ÷ 4",
+      "options": ["2", "3", "4", "5"],
+      "answer": "3"
+    },
+    {
+      "question": "What is π approximately?",
+      "options": ["3.14", "3.41", "2.14", "4.13"],
+      "answer": "3.14"
+    },
+    {
+      "question": "What is 8²?",
+      "options": ["56", "64", "72", "84"],
+      "answer": "64"
+    }
+  ]
+}

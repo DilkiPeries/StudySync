@@ -1,0 +1,55 @@
+{
+  "title": "World Geography",
+  "questions": [
+    {
+      "question": "Which is the largest continent?",
+      "options": ["Africa", "Asia", "Europe", "North America"],
+      "answer": "Asia"
+    },
+    {
+      "question": "What is the capital of France?",
+      "options": ["Paris", "Madrid", "Berlin", "Rome"],
+      "answer": "Paris"
+    },
+    {
+      "question": "Which ocean is the deepest?",
+      "options": ["Atlantic", "Arctic", "Indian", "Pacific"],
+      "answer": "Pacific"
+    },
+    {
+      "question": "Mount Everest is located in which country?",
+      "options": ["India", "China", "Nepal", "Bhutan"],
+      "answer": "Nepal"
+    },
+    {
+      "question": "Which river is the longest in the world?",
+      "options": ["Nile", "Amazon", "Yangtze", "Mississippi"],
+      "answer": "Nile"
+    },
+    {
+      "question": "Which desert is the largest?",
+      "options": ["Gobi", "Sahara", "Kalahari", "Atacama"],
+      "answer": "Sahara"
+    },
+    {
+      "question": "What country is shaped like a boot?",
+      "options": ["France", "Greece", "Italy", "Turkey"],
+      "answer": "Italy"
+    },
+    {
+      "question": "Which US state is the largest by area?",
+      "options": ["Texas", "California", "Alaska", "Montana"],
+      "answer": "Alaska"
+    },
+    {
+      "question": "Which country has the most people?",
+      "options": ["USA", "China", "India", "Indonesia"],
+      "answer": "China"
+    },
+    {
+      "question": "Which continent is Egypt located in?",
+      "options": ["Asia", "Africa", "Europe", "Australia"],
+      "answer": "Africa"
+    }
+  ]
+}
