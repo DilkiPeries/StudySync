@@ -1,18 +1,4 @@
-const httpServer = require('http').createServer(app);
-const io = require('socket.io')(httpServer, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
-  }
-});
-httpServer.listen(3000);
-
-const socket = io({
-  transports: ['websocket']
-});
-
-
-//const socket = io();
+const socket = io();
 const getUsername = () =>
   localStorage.getItem('username') ||
   document.cookie.split('; ').find(c => c.startsWith('username='))?.split('=')[1]
